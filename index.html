@@ -39,15 +39,60 @@
   </div>
 
 <section id="hero">
-  <video class="hero-video" autoplay muted loop playsinline poster="./images/hero-poster.jpg">
-    <source src="./images/sonicast_video1.mp4" type="video/mp4">
+  <!--
+    영상 파일명만 아래 data 속성과 동일하게 넣으면 됩니다.
+
+    PC 영상:
+    ./videos/sonicast-desktop.mp4
+
+    모바일 영상:
+    ./videos/sonicast-mobile.mp4
+
+    포스터 이미지는 없어도 영상이 재생되지만,
+    로딩 중 빈 화면을 방지하려면 함께 넣는 것을 권장합니다.
+  -->
+  <video
+    id="heroVideo"
+    class="hero-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    data-desktop-src="./images/sonicast_video1.mp4"
+    data-mobile-src="./images/Sequence 01.mp4"
+    data-desktop-poster="./images/hero-poster.jpg"
+    data-mobile-poster="./images/hero-mobile-poster.jpg"
+    aria-label="SONICAST 메인 비주얼 영상"
+  >
+    <source
+      id="heroVideoSource"
+      src="./images/sonicast_video1.mp4"
+      type="video/mp4"
+    >
   </video>
+
+  <div class="hero-dim" aria-hidden="true"></div>
+
+  <!--
+    이 HTML 타이틀은 1000px 이하 모바일에서만 표시됩니다.
+    1001px 이상 PC에서는 원래 영상 속 자막을 그대로 사용합니다.
+  -->
   <div class="hero-copy">
-    <h1>WELCOME TO<br>SONICAST</h1>
-    <p>소리의 기준을 다시 설계하는 음향 기술 중심 기업</p>
+    <span class="hero-eyebrow">WELCOME TO SONICAST</span>
+
+    <h1>
+      SOUND.<br>
+      <strong>ENGINEERED.</strong>
+    </h1>
+
+    <p>
+      정밀한 음향 기술로<br class="hero-mobile-br">
+      더 나은 소리의 미래를 설계합니다.
+    </p>
   </div>
 
-  <div class="scroll">SCROLL</div>
+  <div class="scroll" aria-hidden="true">SCROLL</div>
 </section>
 
 <section id="about" class="about-split">
@@ -124,15 +169,15 @@
       <div class="stack-area">
         <article class="stack-card">
           <div class="stack-copy"><div class="num">01</div><h3>원천기술 개발</h3><p>음향 관련 핵심 부품과 드라이버 기술을 자체적으로 연구하며, 제품의 기초가 되는 소리의 구조부터 설계합니다.</p></div>
-          <div class="stack-visual"><img src="./icon1.png" alt=""></div>
+          <div class="stack-visual"><img src="./images/icon1.png" alt=""></div>
         </article>
         <article class="stack-card">
           <div class="stack-copy"><div class="num">02</div><h3>전문가 기반 R&amp;D</h3><p>소니캐스트 개발 총괄 책임자인 이신렬 박사님은 IEC 오디오 부문 한국대표, 한국음향학회 오디오기기분과 위원장 및 국내 대기업 음향 기술 자문을 역임했습니다.</p></div>
-          <div class="stack-visual"><img src="./icon2.png" alt=""></div>
+          <div class="stack-visual"><img src="./images/icon2.png" alt=""></div>
         </article>
         <article class="stack-card">
           <div class="stack-copy"><div class="num">03</div><h3>세계적 측정 장비 검증</h3><p>DIREM E3는 Audio Precision, G.R.A.S, Klippel, SoundCheck, B&amp;K 등 세계 최고 수준의 음향 측정 및 분석 장비를 통해 개발되었습니다.</p></div>
-          <div class="stack-visual"><img src="./icon3.png" alt=""></div>
+          <div class="stack-visual"><img src="./images/icon3.png" alt=""></div>
         </article>
       </div>
     </div>
@@ -153,37 +198,37 @@
     <div class="product-track">
       <article class="product-card">
         <h3>direm<br>PRO MASTER</h3>
-        <div class="earphone"><img src="./images/product1.png" alt="direm PRO MASTER"></div>
+        <div class="earphone"><img src="./images/master.png" alt="direm PRO MASTER"></div>
         <p>전문 모니터링을 위한 플래그십 유선 인이어</p>
       </article>
       <article class="product-card">
         <h3>direm<br>PRO II</h3>
-        <div class="earphone"><img src="./images/product1.png" alt="direm PRO II"></div>
+        <div class="earphone"><img src="./images/pro2.png" alt="direm PRO II"></div>
         <p>USB-C DAC와 SF 드라이버 기반 고해상도 사운드</p>
       </article>
       <article class="product-card">
         <h3>direm<br>PRO</h3>
-        <div class="earphone"><img src="./images/product1.png" alt="direm PRO"></div>
+        <div class="earphone"><img src="./images/pro.png" alt="direm PRO"></div>
         <p>MMCX 단자와 정밀 튜닝을 갖춘 프로 라인</p>
       </article>
       <article class="product-card">
         <h3>direm<br>E3</h3>
-        <div class="earphone"><img src="./images/product1.png" alt="direm E3"></div>
+        <div class="earphone"><img src="./images/e3.png" alt="direm E3"></div>
         <p>세계 최초 음향표준 이어폰 콘셉트의 기준 제품</p>
       </article>
       <article class="product-card">
         <h3>direm<br>E3C</h3>
-        <div class="earphone"><img src="./images/product1.png" alt="direm E3C"></div>
+        <div class="earphone"><img src="./images/e3c.png" alt="direm E3C"></div>
         <p>USB-C DAC 내장형 전문가용 인이어</p>
       </article>
       <article class="product-card">
         <h3>Hi-Fi<br>DAC</h3>
-        <div class="earphone"><img src="./images/product1.png" alt="Hi-Fi DAC"></div>
+        <div class="earphone"><img src="./images/dac.png" alt="Hi-Fi DAC"></div>
         <p>초저노이즈와 높은 호환성을 갖춘 휴대용 DAC</p>
       </article>
       <article class="product-card">
         <h3>DIRAC<br>Series</h3>
-        <div class="earphone"><img src="./images/product1.png" alt="DIRAC Series"></div>
+        <div class="earphone"><img src="./images/series.png" alt="DIRAC Series"></div>
         <p>소니캐스트의 음향 기술을 담은 대표 라인업</p>
       </article>
     </div>
