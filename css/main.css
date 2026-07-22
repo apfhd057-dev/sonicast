@@ -764,6 +764,22 @@ section{position:relative;padding:150px 5vw;}
     line-height:1.6;
     font-size:15px;
 }
+#products .earphone{
+    width: 230px;
+    margin: 30px auto 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#products .earphone img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
 #products .product-ribbon{
     position:relative !important;
     width:100vw !important;
@@ -904,37 +920,67 @@ section{position:relative;padding:150px 5vw;}
 }
 #sns .sns-visual{
     position:absolute;
-    left:10%;
-    right:-16%;
-    bottom:-9%;
+    left:8%;
+    right:-10%;
+    bottom:-8%;
     height:58%;
-    border-radius:260px 260px 0 0;
     overflow:hidden;
+    isolation:isolate;
+    border-radius:260px 260px 0 0;
     background:
-        radial-gradient(circle at 38% 28%,rgba(255,255,255,.9),rgba(255,255,255,.35) 33%,rgba(255,255,255,.06) 68%),
-        linear-gradient(135deg,rgba(255,255,255,.45),rgba(255,255,255,.05));
-    filter:grayscale(1);
+        repeating-linear-gradient(
+            90deg,
+            rgba(255,255,255,.08) 0 1px,
+            transparent 1px 28px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            rgba(255,255,255,.06) 0 1px,
+            transparent 1px 28px
+        ),
+        radial-gradient(
+            circle at 34% 22%,
+            rgba(87,215,255,.16),
+            transparent 56%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.16),
+            rgba(255,255,255,.035)
+        );
+    filter:none;
 }
+
+/* SONICAST 로고를 닮은 바깥쪽 C */
 #sns .sns-visual::before{
     content:"";
     position:absolute;
-    inset:0;
-    background:
-        linear-gradient(135deg,rgba(255,255,255,.55),transparent 45%),
-        repeating-linear-gradient(90deg,rgba(0,0,0,.16) 0 1px,transparent 1px 28px),
-        repeating-linear-gradient(0deg,rgba(0,0,0,.12) 0 1px,transparent 1px 28px);
-    mix-blend-mode:multiply;
+    left:80%;
+    bottom:-60px;
+    width:400px;
+    height:400px;
+    box-sizing:border-box;
+    border:50px solid rgba(0,107,255,.82);
+    border-right-color:transparent;
+    border-radius:50%;
+    transform:translateX(-50%) rotate(-18deg);
+    filter:drop-shadow(0 0 24px rgba(0,107,255,.26));
 }
+
+/* SONICAST 로고를 닮은 안쪽 C */
 #sns .sns-visual::after{
     content:"";
     position:absolute;
-    width:180px;
-    height:180px;
-    right:38px;
-    bottom:34px;
+    left:80%;
+    bottom:18px;
+    width:250px;
+    height:250px;
+    box-sizing:border-box;
+    border:22px solid rgba(87,215,255,.78);
+    border-right-color:transparent;
     border-radius:50%;
-    border:38px solid rgba(0,0,0,.18);
-    box-shadow:-120px -30px 0 rgba(0,0,0,.10),-210px 48px 0 rgba(0,0,0,.12);
+    transform:translateX(-50%) rotate(-18deg);
+    filter:drop-shadow(0 0 18px rgba(87,215,255,.22));
 }
 .sns-spread-hint{
     position:absolute;
@@ -1199,7 +1245,7 @@ section{position:relative;padding:150px 5vw;}
     #about .about-center-copy p{font-size:14px;line-height:1.75;}
     #about .about-center-copy br{display:none;}
 
-    #vision{height:auto !important;min-height:100vh !important;margin-top:-40px !important;padding:80px 24px 110px !important;overflow:hidden !important;background:#03040a !important;}
+    #vision{height:auto !important;min-height:0 !important;margin-top:-40px !important;padding:72px 24px 68px !important;overflow:hidden !important;background:#03040a !important;}
     #vision .vision-sticky{position:relative !important;top:auto !important;height:auto !important;min-height:auto !important;display:block !important;overflow:visible !important;}
     #vision .vision-stage{position:absolute !important;inset:0 !important;height:100% !important;margin:0 !important;z-index:0 !important;overflow:hidden !important;}
     #vision .vision-image{position:absolute !important;inset:0 !important;left:0 !important;top:0 !important;width:100% !important;height:100% !important;transform:none !important;border-radius:0 !important;box-shadow:none !important;filter:none !important;}
@@ -1207,7 +1253,7 @@ section{position:relative;padding:150px 5vw;}
     #vision .vision-image::before{display:none !important;}
     #vision .vision-image::after{content:"" !important;position:absolute !important;inset:0 !important;background:linear-gradient(180deg,rgba(3,4,10,.35) 0%,rgba(3,4,10,.62) 42%,rgba(3,4,10,.86) 100%),linear-gradient(90deg,rgba(3,4,10,.78) 0%,rgba(3,4,10,.32) 55%,rgba(3,4,10,.78) 100%) !important;z-index:1 !important;}
     #vision .vision-intro-title{display:none !important;}
-    #vision .vision-content{position:relative !important;z-index:5 !important;width:100% !important;display:flex !important;flex-direction:column !important;gap:42px !important;opacity:1 !important;transform:none !important;filter:none !important;text-align:left !important;padding-top:0 !important;}
+    #vision .vision-content{position:relative !important;z-index:5 !important;width:100% !important;display:flex !important;flex-direction:column !important;gap:34px !important;opacity:1 !important;transform:none !important;filter:none !important;text-align:left !important;padding-top:0 !important;}
     #vision .vision-left,#vision .vision-right{opacity:1 !important;transform:none !important;filter:none !important;}
     #vision .vision-kicker{font-size:18px !important;margin-bottom:28px !important;color:var(--blue) !important;}
     #vision .vision-title{font-size:clamp(34px,9.2vw,48px) !important;line-height:1.35 !important;letter-spacing:-.08em !important;color:#fff !important;}
@@ -1257,3 +1303,372 @@ section{position:relative;padding:150px 5vw;}
     #footer .footer_bottom_nav li{flex-direction:column;gap:6px;margin-bottom:22px;}
     #footer .top_circle{float:none;width:74px;height:74px;}
 }
+
+/* ===============================
+   MOBILE MOTION + VISION SPACING FIX
+================================ */
+@media (max-width:768px){
+
+    /* VISION 배경 이미지도 살짝 줌인되며 정착 */
+    #vision .vision-image img{
+        transform:scale(1.08);
+        transform-origin:center center;
+        transition:
+            transform 1.4s cubic-bezier(.16,1,.3,1),
+            filter 1.2s ease;
+        filter:brightness(.84) saturate(.9);
+        will-change:transform,filter;
+    }
+
+    #vision.mobile-motion-on .vision-image img{
+        transform:scale(1.02);
+        filter:brightness(.9) saturate(1);
+    }
+
+    /* VISION 좌우 내용은 서로 다른 방향에서 등장 */
+    #vision .vision-left.mobile-motion-target{
+        opacity:0 !important;
+        transform:translate3d(-24px,24px,0) !important;
+        filter:blur(7px) !important;
+        transition:
+            opacity .78s cubic-bezier(.16,1,.3,1),
+            transform .9s cubic-bezier(.16,1,.3,1),
+            filter .78s ease !important;
+        transition-delay:var(--mobile-delay,0ms) !important;
+    }
+
+    #vision .vision-right.mobile-motion-target{
+        opacity:0 !important;
+        transform:translate3d(24px,24px,0) !important;
+        filter:blur(7px) !important;
+        transition:
+            opacity .78s cubic-bezier(.16,1,.3,1),
+            transform .9s cubic-bezier(.16,1,.3,1),
+            filter .78s ease !important;
+        transition-delay:var(--mobile-delay,0ms) !important;
+    }
+
+    #vision .vision-left.mobile-motion-target.mobile-in,
+    #vision .vision-right.mobile-motion-target.mobile-in{
+        opacity:1 !important;
+        transform:translate3d(0,0,0) !important;
+        filter:blur(0) !important;
+    }
+
+    /* 카드형 콘텐츠는 아래에서 작게 떠오르는 효과 */
+    #tech .stack-card.mobile-motion-target,
+    #sns .sns-case-card.mobile-motion-target,
+    #footer .footer_bottom.mobile-motion-target{
+        opacity:0;
+        transform:translate3d(0,30px,0) scale(.975) !important;
+        filter:blur(6px);
+        transition:
+            opacity .72s cubic-bezier(.16,1,.3,1),
+            transform .86s cubic-bezier(.16,1,.3,1),
+            filter .72s ease,
+            box-shadow .35s ease;
+        transition-delay:var(--mobile-delay,0ms);
+        will-change:opacity,transform,filter;
+    }
+
+    #tech .stack-card.mobile-motion-target.mobile-in,
+    #sns .sns-case-card.mobile-motion-target.mobile-in,
+    #footer .footer_bottom.mobile-motion-target.mobile-in{
+        opacity:1;
+        transform:translate3d(0,0,0) scale(1) !important;
+        filter:blur(0);
+    }
+
+    /* 등장 후 카드가 아주 미세하게 살아 있는 느낌 */
+    #tech .stack-card.mobile-motion-target.mobile-in{
+        box-shadow:0 24px 62px rgba(20,29,49,.12);
+    }
+
+    #sns .sns-case-card.mobile-motion-target.mobile-in:nth-child(odd){
+        transform:translate3d(0,0,0) rotate(-1deg) scale(1) !important;
+    }
+
+    #sns .sns-case-card.mobile-motion-target.mobile-in:nth-child(even){
+        transform:translate3d(0,0,0) rotate(1deg) scale(1) !important;
+    }
+}
+
+@media (max-width:480px){
+    #vision{
+        padding:64px 20px 56px !important;
+    }
+}
+
+@media (prefers-reduced-motion:reduce){
+    #vision .vision-image img,
+    .mobile-motion-target{
+        transition:none !important;
+        animation:none !important;
+    }
+
+    .mobile-motion-target{
+        opacity:1 !important;
+        transform:none !important;
+        filter:none !important;
+    }
+}
+
+/* ==================================================
+   RESPONSIVE HERO VIDEO
+   PC / 모바일 영상 자동 교체 + HTML 타이틀
+================================================== */
+
+#hero{
+    position: relative;
+    width: 100%;
+    min-height: 100svh;
+    padding: 0;
+    overflow: hidden;
+    isolation: isolate;
+    text-align: left;
+    background: #030713;
+}
+
+#hero .hero-video{
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center center;
+
+    opacity: 1;
+    transform: scale(1.035);
+    filter: saturate(.95) contrast(1.04);
+
+    transition:
+        opacity .55s ease,
+        transform 1.8s cubic-bezier(.16, 1, .3, 1),
+        filter 1.2s ease;
+}
+
+#hero.hero-loaded .hero-video{
+    transform: scale(1);
+}
+
+#hero .hero-dim{
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(1, 4, 12, .78) 0%,
+            rgba(1, 4, 12, .48) 39%,
+            rgba(1, 4, 12, .08) 70%,
+            rgba(1, 4, 12, .18) 100%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(0, 0, 0, .32) 0%,
+            rgba(0, 0, 0, .02) 48%,
+            rgba(0, 0, 0, .42) 100%
+        );
+}
+
+#hero .hero-copy{
+    position: relative;
+    z-index: 3;
+
+    width: min(1400px, calc(100% - 96px));
+    margin: 0 auto;
+    padding-top: clamp(180px, 24vh, 270px);
+
+    color: #fff;
+    text-align: left;
+
+    opacity: 0;
+    filter: blur(10px);
+    transform: translate3d(0, 42px, 0);
+
+    transition:
+        opacity .9s cubic-bezier(.16, 1, .3, 1),
+        transform 1.05s cubic-bezier(.16, 1, .3, 1),
+        filter .9s ease;
+}
+
+#hero.hero-copy-on .hero-copy{
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0);
+}
+
+#hero .hero-eyebrow{
+    display: inline-block;
+    margin-bottom: 24px;
+
+    font-size: clamp(12px, .9vw, 15px);
+    font-weight: 800;
+    letter-spacing: .18em;
+    color: var(--blue);
+}
+
+#hero .hero-copy h1{
+    margin: 0;
+
+    font-size: clamp(68px, 8.2vw, 132px);
+    font-weight: 900;
+    line-height: .84;
+    letter-spacing: -.075em;
+    color: #fff;
+    text-transform: uppercase;
+    text-shadow: 0 18px 70px rgba(0, 0, 0, .45);
+}
+
+#hero .hero-copy h1 strong{
+    color: #fff;
+}
+
+#hero .hero-copy p{
+    margin-top: 30px;
+
+    font-size: clamp(15px, 1.2vw, 20px);
+    font-weight: 600;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, .88);
+    text-shadow: 0 8px 28px rgba(0, 0, 0, .55);
+}
+
+#hero .hero-mobile-br{
+    display: none;
+}
+
+#hero .scroll{
+    z-index: 4;
+}
+
+@media (max-width: 1000px){
+
+    #hero{
+        min-height: 100svh;
+    }
+
+    #hero .hero-video{
+        object-position: center center;
+        transform: scale(1.06);
+    }
+
+    #hero.hero-loaded .hero-video{
+        transform: scale(1.015);
+    }
+
+    #hero .hero-dim{
+        background:
+            linear-gradient(
+                180deg,
+                rgba(1, 4, 12, .34) 0%,
+                rgba(1, 4, 12, .07) 28%,
+                rgba(1, 4, 12, .22) 56%,
+                rgba(1, 4, 12, .78) 100%
+            ),
+            linear-gradient(
+                90deg,
+                rgba(1, 4, 12, .48) 0%,
+                rgba(1, 4, 12, .08) 72%
+            );
+    }
+
+    #hero .hero-copy{
+        position: absolute;
+        right: 0;
+        left: 0;
+
+        width: calc(100% - 48px);
+        padding-top: 0;
+    }
+
+    #hero .hero-eyebrow{
+        margin-bottom: 15px;
+        font-size: 11px;
+    }
+
+    #hero .hero-copy h1{
+        font-size: clamp(54px, 13vw, 88px);
+        line-height: .88;
+    }
+
+    #hero .hero-copy p{
+        margin-top: 20px;
+        font-size: 14px;
+        line-height: 1.65;
+    }
+
+    #hero .hero-mobile-br{
+        display: block;
+    }
+}
+
+@media (max-width: 600px){
+
+    #hero .hero-copy{
+        text-align: center;
+    }
+
+    #hero .hero-copy h1{
+        font-size: clamp(46px, 14.4vw, 68px);
+    }
+
+    #hero .hero-copy p{
+        font-size: 13px;
+    }
+
+    #hero .scroll{
+        bottom: 24px;
+    }
+
+    #hero .scroll::after{
+        height: 42px;
+        margin-top: 10px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce){
+
+    #hero .hero-video,
+    #hero .hero-copy{
+        transition: none !important;
+    }
+
+    #hero .hero-copy{
+        opacity: 1 !important;
+        filter: none !important;
+        transform: none !important;
+    }
+}
+
+/* ==================================================
+   HERO TITLE DISPLAY RULE
+   PC 영상에는 기존 영상 속 자막을 사용하고,
+   HTML 타이틀은 모바일에서만 표시
+================================================== */
+
+@media (min-width: 1001px){
+
+    #hero .hero-copy,
+    #hero .hero-dim{
+        display: none !important;
+    }
+}
+
+@media (max-width: 1000px){
+
+    #hero .hero-copy{
+        display: block;
+    }
+
+    #hero .hero-dim{
+        display: block;
+    }
+}
+
