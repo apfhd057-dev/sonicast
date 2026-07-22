@@ -57,6 +57,27 @@ function updateVisionZoom() {
     const bar = document.querySelector('[data-vision-progress]');
     if (!section || !image || !intro || !content) return;
 
+    /*
+       모바일은 긴 sticky/zoom 대신
+       가벼운 등장 모션을 별도로 사용합니다.
+    */
+    if (window.innerWidth <= 768) {
+        [image, intro, content, left, right, sideLeft, sideRight].forEach(el => {
+            if (!el) return;
+            el.style.removeProperty('width');
+            el.style.removeProperty('height');
+            el.style.removeProperty('left');
+            el.style.removeProperty('top');
+            el.style.removeProperty('opacity');
+            el.style.removeProperty('transform');
+            el.style.removeProperty('filter');
+            el.style.removeProperty('border-radius');
+        });
+
+        if (bar) bar.style.removeProperty('transform');
+        return;
+    }
+
     const rect = section.getBoundingClientRect();
     const total = section.offsetHeight - window.innerHeight;
     const progress = clamp(-rect.top / total, 0, 1);
@@ -360,3 +381,153 @@ if (menuBtn && mobileMenu) {
         });
     });
 }
+
+/* MOBILE SCROLL MOTION */
+(function initMobileScrollMotion() {
+    if (window.innerWidth > 768) return;
+
+    const vision = document.querySelector('#vision');
+    const targets = [
+        document.querySelector('#vision .vision-left'),
+        document.querySelector('#vision .vision-right'),
+        ...document.querySelectorAll('#tech .stack-card'),
+        ...document.querySelectorAll('#sns .sns-case-card'),
+        document.querySelector('#footer .footer_bottom')
+    ].filter(Boolean);
+
+    targets.forEach((target, index) => {
+        target.classList.add('mobile-motion-target');
+        target.style.setProperty(
+            '--mobile-delay',
+            `${Math.min(index * 70, 280)}ms`
+        );
+    });
+
+    const reducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    if (reducedMotion || !('IntersectionObserver' in window)) {
+        vision?.classList.add('mobile-motion-on');
+        targets.forEach(target => target.classList.add('mobile-in'));
+        return;
+    }
+
+    const observer = new IntersectionObserver(
+        entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+
+                if (entry.target === vision) {
+                    vision.classList.add('mobile-motion-on');
+                } else {
+                    entry.target.classList.add('mobile-in');
+                }
+
+                observer.unobserve(entry.target);
+            });
+        },
+        {
+            threshold: .14,
+            rootMargin: '0px 0px -8% 0px'
+        }
+    );
+
+    if (vision) observer.observe(vision);
+    targets.forEach(target => observer.observe(target));
+})();
+
+/* ==================================================
+   RESPONSIVE HERO VIDEO
+   1000px 기준으로 PC / 모바일 영상 교체
+================================================== */
+(function initResponsiveHeroVideo() {
+    "use strict";
+
+    const hero = document.getElementById("hero");
+    const video = document.getElementById("heroVideo");
+    const source = document.getElementById("heroVideoSource");
+
+    if (!hero || !video || !source) return;
+
+    const mobileQuery = window.matchMedia("(max-width: 1000px)");
+    let currentMode = "";
+
+    function getVideoSettings() {
+        const isMobile = mobileQuery.matches;
+
+        return {
+            mode: isMobile ? "mobile" : "desktop",
+            src: isMobile
+                ? video.dataset.mobileSrc
+                : video.dataset.desktopSrc,
+            poster: isMobile
+                ? video.dataset.mobilePoster
+                : video.dataset.desktopPoster
+        };
+    }
+
+    function applyVideoSource() {
+        const settings = getVideoSettings();
+
+        if (!settings.src || currentMode === settings.mode) return;
+
+        currentMode = settings.mode;
+        hero.classList.remove("hero-loaded");
+
+        source.src = settings.src;
+
+        if (settings.poster) {
+            video.poster = settings.poster;
+        } else {
+            video.removeAttribute("poster");
+        }
+
+        video.load();
+
+        const playPromise = video.play();
+
+        if (playPromise && typeof playPromise.catch === "function") {
+            playPromise.catch(function () {
+                /*
+                   브라우저가 자동 재생을 막더라도
+                   포스터와 HTML 타이틀은 정상적으로 보입니다.
+                */
+            });
+        }
+    }
+
+    function showHeroCopy() {
+        requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+                hero.classList.add("hero-copy-on");
+            });
+        });
+    }
+
+    video.addEventListener("loadeddata", function () {
+        hero.classList.add("hero-loaded");
+    });
+
+    video.addEventListener("canplay", function () {
+        hero.classList.add("hero-loaded");
+    });
+
+    video.addEventListener("error", function () {
+        /*
+           사용자가 아직 영상을 넣지 않았을 때도
+           타이틀과 배경은 유지됩니다.
+        */
+        hero.classList.add("hero-loaded");
+    });
+
+    applyVideoSource();
+    showHeroCopy();
+
+    if (typeof mobileQuery.addEventListener === "function") {
+        mobileQuery.addEventListener("change", applyVideoSource);
+    } else {
+        mobileQuery.addListener(applyVideoSource);
+    }
+})();
+
