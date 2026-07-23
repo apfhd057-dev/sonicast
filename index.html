@@ -1,370 +1,602 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SONICAST Split About Preview</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./css/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NE 능률</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <script src="./js/jquery.js"></script>
+    <script src="./js/jquery-ui.js"></script>
+    <script src="./js/menu.js" defer></script>
 </head>
 <body>
-<div class="noise"></div>
-<div class="cursor"></div>
-<div class="bg-orb"></div>
-<div class="grid-bg"></div>
-<header id="header">
-  <div class="logo">
-    <img src="./images/logo.png" alt="로고">
-  </div>
-  <nav class="nav">
-    <a href="#about">ABOUT</a>
-    <a href="#tech">TECH</a>
-    <a href="#products">PRODUCTS</a>
-    <a href="#sns">CHANNEL</a>
-  </nav>
-  <a class="contact-pill" href="#footer">CONTACT</a>
-  <button class="menu-btn" type="button" aria-label="메뉴 열기">
-    <span></span>
-    <span></span>
-  </button>
-</header>
-<div class="mobile-menu">
-    <a href="#about">ABOUT</a>
-    <a href="#tech">TECH</a>
-    <a href="#products">PRODUCTS</a>
-    <a href="#sns">CHANNEL</a>
-    <a href="#footer">CONTACT</a>
-  </div>
-
-<section id="hero">
-  <!--
-    영상 파일명만 아래 data 속성과 동일하게 넣으면 됩니다.
-
-    PC 영상:
-    ./videos/sonicast-desktop.mp4
-
-    모바일 영상:
-    ./videos/sonicast-mobile.mp4
-
-    포스터 이미지는 없어도 영상이 재생되지만,
-    로딩 중 빈 화면을 방지하려면 함께 넣는 것을 권장합니다.
-  -->
-  <video
-    id="heroVideo"
-    class="hero-video"
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="metadata"
-    data-desktop-src="./images/sonicast_video1.mp4"
-    data-mobile-src="./images/Sequence 01.mp4"
-    data-desktop-poster="./images/hero-poster.jpg"
-    data-mobile-poster="./images/hero-mobile-poster.jpg"
-    aria-label="SONICAST 메인 비주얼 영상"
-  >
-    <source
-      id="heroVideoSource"
-      src="./images/sonicast_video1.mp4"
-      type="video/mp4"
-    >
-  </video>
-
-  <div class="hero-dim" aria-hidden="true"></div>
-
-  <!--
-    이 HTML 타이틀은 1000px 이하 모바일에서만 표시됩니다.
-    1001px 이상 PC에서는 원래 영상 속 자막을 그대로 사용합니다.
-  -->
-  <div class="hero-copy">
-    <span class="hero-eyebrow">WELCOME TO SONICAST</span>
-
-    <h1>
-      SOUND.<br>
-      <strong>ENGINEERED.</strong>
-    </h1>
-
-    <p>
-      정밀한 음향 기술로<br class="hero-mobile-br">
-      더 나은 소리의 미래를 설계합니다.
-    </p>
-  </div>
-
-  <div class="scroll" aria-hidden="true">SCROLL</div>
-</section>
-
-<section id="about" class="about-split">
-    <div class="about-sticky">
-        <div class="about-big top" data-split-top>
-            <span>World-class Acoustic Technology&nbsp;</span>
-            <span>World-class Acoustic Technology&nbsp;</span>
-        </div>
-
-        <div class="about-center-copy" data-split-copy>
-            <h2>최고의 부품이 <strong>최고의 소리</strong>를 만듭니다.</h2>
-            <p>
-                ㈜소니캐스트는 음향공학 기반의 기술 개발을 통해<br>
-                세계적 수준의 사운드 경험을 설계합니다.
-            </p>
-        </div>
-
-        <div class="about-big bottom" data-split-bottom>
-            <span>World-class Acoustic Technology&nbsp;</span>
-            <span>World-class Acoustic Technology&nbsp;</span>
-        </div>
-    </div>
-</section>
-
-
-<section id="vision" class="vision-zoom" >
-    <div class="vision-sticky">
-        <div class="vision-stage">
-            <div class="vision-image" data-vision-image>
-                <img src="./images/global_img.png" alt="">
+    <div id="wrap">
+        <header id="header">
+            <div class="header_in">
+                <div class="center_group">
+                    <h1 class="logo"><a href="#"><img src="./images/로고.png" alt="로고이미지"></a></h1>
+                    <nav id="nav">
+                        <ul>
+                            <li>
+                                <a href="./sub1.html">기업소개</a>
+                                <ul class="sub">
+                                    <li><a href="./sub1.html">인사말</a></li>
+                                    <li><a href="#">경영철학</a></li>
+                                    <li><a href="#">주요연혁</a></li>
+                                    <li><a href="#">CI</a></li>
+                                    <li><a href="#">위치안내</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">출판 교재</a>
+                                <ul class="sub">
+                                    <li><a href="#">초등 교재</a></li>
+                                    <li><a href="#">중등 교재</a></li>
+                                    <li><a href="#">고등 교재</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">교육서비스</a>
+                                <ul class="sub">
+                                    <li><a href="#">영유아 교육</a></li>
+                                    <li><a href="#">초·중·고 교육</a></li>
+                                    <li><a href="#">학습 솔루션</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">선생님지원</a>
+                                <ul class="sub">
+                                    <li><a href="#">수업 지원</a></li>
+                                    <li><a href="#">평가 지원</a></li>
+                                    <li><a href="#">교사 자료</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">홍보센터</a>
+                                <ul class="sub">
+                                    <li><a href="#">보도자료</a></li>
+                                    <li><a href="#">사회공헌</a></li>
+                                    <li><a href="#">광고자료</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <ul class="info_mn">
+                    <li><a href="#">채용</a></li>
+                    <li><a href="#">IR</a></li>
+                    <li><a href="#">English</a></li>
+                </ul>
+                <button
+                    type="button"
+                    class="hamburger_btn"
+                    aria-label="전체 메뉴 열기"
+                    aria-controls="mobileSitemap"
+                    aria-expanded="false"
+                >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
-        </div>
-
-        <h2 class="vision-intro-title" data-vision-intro>
-            세계적 수준의<br>
-            사운드 경험을 설계합니다.
-        </h2>
-
-        <div class="vision-side-word left" data-vision-side-left>SONICAST</div>
-        <div class="vision-side-word right" data-vision-side-right>AUDIO</div>
-
-        <div class="vision-content" data-vision-content>
-            <div class="vision-left" data-vision-left>
-                <span class="vision-kicker">BRAND VISION</span>
-                <h2 class="vision-title">
-                    우리는 기술 혁신과 정밀한<br>
-                    음향 설계를 통해 더 나은 소리의<br>
-                    미래를 만들어 갑니다.
-                </h2>
+            <div class="submn_area">
             </div>
-            <div class="vision-right" data-vision-right>
-                <p class="vision-desc">
-                    소니캐스트는 음향 관련 원천기술과 핵심 부품 개발,<br>
-                    정밀 측정 기술을 바탕으로 국내 음향 산업의 발전을 이끌고 있습니다.<br>
-                    끊임없는 연구와 도전을 통해 고객에게 새로운 경험과 가치를 제공하며,<br>
-                    기술 중심의 글로벌 음향 기업으로 성장하고 있습니다.<br><br>
-                    
-                    세계 최고 수준의 음향 기술력과 전문성을 기반으로,<br>
-                    고객과 함께 성장하는 신뢰받는 파트너이자<br>
-                    대한민국을 대표하는 음향 브랜드를 실현해 나가겠습니다.
-                </p>
+
+            <div class="mobile_sitemap" id="mobileSitemap" aria-hidden="true">
+                <div class="mobile_sitemap_inner">
+                    <div class="mobile_sitemap_top">
+                        <a href="#" class="mobile_logo">
+                            <img src="./images/로고.png" alt="NE능률">
+                        </a>
+
+                        <button
+                            type="button"
+                            class="mobile_close_btn"
+                            aria-label="전체 메뉴 닫기"
+                        >
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+
+                    <nav class="mobile_nav" aria-label="모바일 전체 메뉴">
+                        <ul>
+                            <li>
+                                <a href="./sub1.html" class="mobile_main_link">
+                                    <span>기업소개</span>
+                                    <em>01</em>
+                                </a>
+                                <ul class="mobile_sub">
+                                    <li><a href="./sub1.html">인사말</a></li>
+                                    <li><a href="#">연혁</a></li>
+                                    <li><a href="#">CI 소개</a></li>
+                                    <li><a href="#">위치안내</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="#" class="mobile_main_link">
+                                    <span>출판 교재</span>
+                                    <em>02</em>
+                                </a>
+                                <ul class="mobile_sub">
+                                    <li><a href="#">초등 교재</a></li>
+                                    <li><a href="#">중등 교재</a></li>
+                                    <li><a href="#">고등 교재</a></li>
+                                    <li><a href="#">기타</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="#" class="mobile_main_link">
+                                    <span>교육서비스</span>
+                                    <em>03</em>
+                                </a>
+                                <ul class="mobile_sub">
+                                    <li><a href="#">아이챌린지</a></li>
+                                    <li><a href="#">NE Kids</a></li>
+                                    <li><a href="#">교과서</a></li>
+                                    <li><a href="#">학습서</a></li>
+                                    <li><a href="#">NE능률 주니어랩</a></li>
+                                    <li><a href="#">NE Times</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="#" class="mobile_main_link">
+                                    <span>선생님지원</span>
+                                    <em>04</em>
+                                </a>
+                                <ul class="mobile_sub">
+                                    <li><a href="#">수업 지원</a></li>
+                                    <li><a href="#">평가 지원</a></li>
+                                    <li><a href="#">교사 자료</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="#" class="mobile_main_link">
+                                    <span>홍보센터</span>
+                                    <em>05</em>
+                                </a>
+                                <ul class="mobile_sub">
+                                    <li><a href="#">보도자료</a></li>
+                                    <li><a href="#">사회공헌</a></li>
+                                    <li><a href="#">광고자료</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <div class="mobile_utility">
+                        <a href="#">채용</a>
+                        <a href="#">IR</a>
+                        <a href="#">English</a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</section>
-
-<section id="tech" class="tech-stack">
-  <div class="tech-pin">
-    <div class="tech-inner">
-      <div class="tech-left reveal">
-        <div class="eyebrow">TECHNOLOGY</div>
-        <h2 class="big-title">The Science of Sound</h2>
-      </div>
-      <div class="stack-area">
-        <article class="stack-card">
-          <div class="stack-copy"><div class="num">01</div><h3>원천기술 개발</h3><p>음향 관련 핵심 부품과 드라이버 기술을 자체적으로 연구하며, 제품의 기초가 되는 소리의 구조부터 설계합니다.</p></div>
-          <div class="stack-visual"><img src="./images/icon1.png" alt=""></div>
-        </article>
-        <article class="stack-card">
-          <div class="stack-copy"><div class="num">02</div><h3>전문가 기반 R&amp;D</h3><p>소니캐스트 개발 총괄 책임자인 이신렬 박사님은 IEC 오디오 부문 한국대표, 한국음향학회 오디오기기분과 위원장 및 국내 대기업 음향 기술 자문을 역임했습니다.</p></div>
-          <div class="stack-visual"><img src="./images/icon2.png" alt=""></div>
-        </article>
-        <article class="stack-card">
-          <div class="stack-copy"><div class="num">03</div><h3>세계적 측정 장비 검증</h3><p>DIREM E3는 Audio Precision, G.R.A.S, Klippel, SoundCheck, B&amp;K 등 세계 최고 수준의 음향 측정 및 분석 장비를 통해 개발되었습니다.</p></div>
-          <div class="stack-visual"><img src="./images/icon3.png" alt=""></div>
-        </article>
-      </div>
-    </div>
-  </div>
-</section>
-<div class="tech-bottom-space"></div>
-<div class="marquee"><div class="marquee-track"><span class="tag">DIREM</span><span class="tag blue">DIRAC</span><span class="tag">SF DRIVER</span><span class="tag blue">HIGH-FIDELITY</span><span class="tag">DIREM</span><span class="tag blue">DIRAC</span><span class="tag">SF DRIVER</span><span class="tag blue">HIGH-FIDELITY</span></div></div>
-
-<section id="products" class="products">
-  <div class="section-head reveal">
-    <div class="products_title">
-      <div class="eyebrow">PRODUCT LINEUP</div>
-      <h2 class="big-title">The Collection</h2>
-    </div>
-  </div>
-
-  <div class="product-marquee reveal">
-    <div class="product-track">
-      <article class="product-card">
-        <h3>direm<br>PRO MASTER</h3>
-        <div class="earphone"><img src="./images/master.png" alt="direm PRO MASTER"></div>
-        <p>전문 모니터링을 위한 플래그십 유선 인이어</p>
-      </article>
-      <article class="product-card">
-        <h3>direm<br>PRO II</h3>
-        <div class="earphone"><img src="./images/pro2.png" alt="direm PRO II"></div>
-        <p>USB-C DAC와 SF 드라이버 기반 고해상도 사운드</p>
-      </article>
-      <article class="product-card">
-        <h3>direm<br>PRO</h3>
-        <div class="earphone"><img src="./images/pro.png" alt="direm PRO"></div>
-        <p>MMCX 단자와 정밀 튜닝을 갖춘 프로 라인</p>
-      </article>
-      <article class="product-card">
-        <h3>direm<br>E3</h3>
-        <div class="earphone"><img src="./images/e3.png" alt="direm E3"></div>
-        <p>세계 최초 음향표준 이어폰 콘셉트의 기준 제품</p>
-      </article>
-      <article class="product-card">
-        <h3>direm<br>E3C</h3>
-        <div class="earphone"><img src="./images/e3c.png" alt="direm E3C"></div>
-        <p>USB-C DAC 내장형 전문가용 인이어</p>
-      </article>
-      <article class="product-card">
-        <h3>Hi-Fi<br>DAC</h3>
-        <div class="earphone"><img src="./images/dac.png" alt="Hi-Fi DAC"></div>
-        <p>초저노이즈와 높은 호환성을 갖춘 휴대용 DAC</p>
-      </article>
-      <article class="product-card">
-        <h3>DIRAC<br>Series</h3>
-        <div class="earphone"><img src="./images/series.png" alt="DIRAC Series"></div>
-        <p>소니캐스트의 음향 기술을 담은 대표 라인업</p>
-      </article>
-    </div>
-  </div>
-
-  <div class="product-ribbon">
-    <div class="ribbon-line">
-      <div class="ribbon-text">
-        <div class="ribbon-group">
-          <span>Measured. Engineered. Proved.</span>
-          <span>Sound engineering for high-fidelity listening.</span>
-          <span>SONICAST DIREM / DIRAC.</span>
-          <span>Original acoustic technology.</span>
-        </div>
-        <div class="ribbon-group">
-          <span>Measured. Engineered. Proved.</span>
-          <span>Sound engineering for high-fidelity listening.</span>
-          <span>SONICAST DIREM / DIRAC.</span>
-          <span>Original acoustic technology.</span>
-        </div>
-        <div class="ribbon-group">
-          <span>Measured. Engineered. Proved.</span>
-          <span>Sound engineering for high-fidelity listening.</span>
-          <span>SONICAST DIREM / DIRAC.</span>
-          <span>Original acoustic technology.</span>
-        </div>
-        <div class="ribbon-group">
-          <span>Measured. Engineered. Proved.</span>
-          <span>Sound engineering for high-fidelity listening.</span>
-          <span>SONICAST DIREM / DIRAC.</span>
-          <span>Original acoustic technology.</span>
-        </div>
-      </div>
-    </div>
-    <div class="ribbon-line">
-      <div class="ribbon-text">
-        <div class="ribbon-group">
-          <span>SONICAST acoustic engineering.</span>
-          <span>Audio Precision · G.R.A.S · Klippel · SoundCheck · B&amp;K</span>
-          <span>Original acoustic technology.</span>
-        </div>
-        <div class="ribbon-group">
-          <span>SONICAST acoustic engineering.</span>
-          <span>Audio Precision · G.R.A.S · Klippel · SoundCheck · B&amp;K</span>
-          <span>Original acoustic technology.</span>
-        </div>
-        <div class="ribbon-group">
-          <span>SONICAST acoustic engineering.</span>
-          <span>Audio Precision · G.R.A.S · Klippel · SoundCheck · B&amp;K</span>
-          <span>Original acoustic technology.</span>
-        </div>
-        <div class="ribbon-group">
-          <span>SONICAST acoustic engineering.</span>
-          <span>Audio Precision · G.R.A.S · Klippel · SoundCheck · B&amp;K</span>
-          <span>Original acoustic technology.</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<section id="sns" class="sns sns-spread-section">
-  <div class="sns-spread-sticky">
-    <div class="sns-head sns-spread-head">
-      <div class="eyebrow">CHANNEL</div>
-      <h2 class="big-title">Connect with SONICAST</h2>
-    </div>
-
-    <div class="sns-stack-stage" data-sns-spread>
-      <article class="sns-case-card spread-card" data-spread-card>
-        <h3>SONICAST<br>YOUTUBE</h3>
-        <p>제품 사운드와 개발 스토리를 영상 콘텐츠로 전달합니다.</p>
-        <div class="sns-visual"></div>
-      </article>
-      <article class="sns-case-card is-blue spread-card" data-spread-card>
-        <h3>EXPORT<br>YOUTUBE</h3>
-        <p>해외 고객을 위한 브랜드 소개와 제품 콘텐츠를 제공합니다.</p>
-        <div class="sns-visual"></div>
-      </article>
-      <article class="sns-case-card spread-card" data-spread-card>
-        <h3>NAVER<br>CAFE</h3>
-        <p>실사용자 피드백과 제품 문의를 연결하는 커뮤니티 채널입니다.</p>
-        <div class="sns-visual"></div>
-      </article>
-      <article class="sns-case-card spread-card" data-spread-card>
-        <h3>NAVER<br>BLOG</h3>
-        <p>기술, 제품, 브랜드 소식을 아카이빙하는 공식 콘텐츠 공간입니다.</p>
-        <div class="sns-visual"></div>
-      </article>
-    </div>
-
-    <div class="sns-spread-hint">SCROLL TO SPREAD</div>
-  </div>
-</section>
-<footer id="footer" class="footer">
-    <div class="footer_top">
-        <div class="footer_top_img"><img src="./images/logo.png" alt=""></div>
-        <ul class="footer_top_nav">
-            <li><a href="">개인정보처리방침</a></li>
-            <li><a href="">이용약관</a></li>
-            <li><a href="">이메일무단수집거부</a></li>
-            <li><a href="">정보공개</a></li>
-            <li><a href="">사이트맵</a></li>
-        </ul>
-    </div>
-    <div class="footer_bottom">
-        <div class="footer_bottom_left">
-            <ul class="footer_bottom_nav">
+        </header>
+        <main id="main">
+            <ul class="main_img">
                 <li>
-                    <h5>본사</h5>
-                    <p>창원시 성산구 삼동로 128번길 85 엑스포상가 304호</p>
+                    <a href="#">
+                        <picture>
+                            <source
+                                media="(max-width: 768px)"
+                                srcset="./images/main_img_mobile.png"
+                            >
+                            <source
+                                media="(max-width: 1024px)"
+                                srcset="./images/main_img_tablet.png"
+                            >
+                            <img
+                                src="./images/main_img.png"
+                                data-fallback="./images/main_img.png"
+                                alt="NE능률 메인 비주얼"
+                            >
+                        </picture>
+                    </a>
                 </li>
+
                 <li>
-                    <h5>연구소</h5>
-                    <p>경기 고양시 일산동구 호수로 678 (삼성스위트II) 704호</p>
+                    <a href="#">
+                        <picture>
+                            <source
+                                media="(max-width: 768px)"
+                                srcset="./images/main_img2_mobile.png"
+                            >
+                            <source
+                                media="(max-width: 1024px)"
+                                srcset="./images/main_img2_tablet.png"
+                            >
+                            <img
+                                src="./images/main_img2.png"
+                                data-fallback="./images/main_img2.png"
+                                alt="NE능률 두 번째 메인 비주얼"
+                            >
+                        </picture>
+                    </a>
                 </li>
-                <li>
+
+                <li class="btn_wrap">
+                    <ul class="btn">
+                        <li class="on"><a href="#" aria-label="첫 번째 슬라이드"></a></li>
+                        <li><a href="#" aria-label="두 번째 슬라이드"></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </main>
+        <section id="contents">
+            <article id="history">
+                <div class="history_section">
+                    <p>오랜 시간 쌓아 온 교육 전문성</p>
+                    <h4>NE능률이 제안하는 <span>교육의 확신</span></h4>
+                </div>
+                <ul>
+                    <li>
+                        <img src="./images/icon1.png" alt="">
+                        <h2>1980</h2>
+                        <span>SINCE</span>
+                        <p>교육출판의 시작</p>
+                    </li>
+                    <li>
+                        <img src="./images/icon2.png" alt="">
+                        <h2>46</h2>
+                        <span>YEARS</span>
+                        <p>쌓아온 교육의 전문성</p>
+                    </li>
+                    <li>
+                        <img src="./images/icon3.png" alt="">
+                        <h2>1위</h2>
+                        <span>BRAND</span>
+                        <p>영어교육 대표 브랜드</p>
+                    </li>
+                    <li>
+                        <img src="./images/icon4.png" alt="">
+                        <h2>3000+</h2>
+                        <span>CONTNETS</span>
+                        <p>학습 콘텐츠 보유</p>
+                    </li>
+                    <li>
+                        <img src="./images/icon5.png" alt="">
+                        <h2>2026</h2>
+                        <span>VISION</span>
+                        <p>에듀테크 선도 기업</p>
+                    </li>
+                </ul>
+                <p class="bottom_text">EDUCATION INNOVATION EDUCATION INNOVATION EDUCATION INNOVATION</p>
+
+            </article>
+            
+        <article id="publish">
+        <div class="p_section">
+            <div class="section_title">
+                <p>Learning Contents</p>
+                <h4>학습 <span>도서</span></h4>
+            </div>
+
+        <div class="category">
+            <button type="button" class="active" data-tab="all">전체</button>
+            <button type="button" data-tab="elementary">초등학생</button>
+            <button type="button" data-tab="middle">중학생</button>
+            <button type="button" data-tab="high">고등학생</button>
+            <button type="button" data-tab="etc">기타</button>
+        </div>
+    </div>
+
+    <div class="books_wrap">
+        <div class="book_arrow">
+            <button type="button" class="prev_btn">‹</button>
+            <button type="button" class="next_btn">›</button>
+         </div>
+        <div class="slide_inner">
+            <!-- 왼쪽 대표 책 + 가운데 설명 -->
+            <div class="book_main">
+                <div class="book_thumb">
+                    <img id="mainBookImg" src="./images/book1.png" alt="초등 영어문법책">
+                </div>
+
+                <div class="book_info">
+                    <h3 id="mainBookTitle">초등 영어문법책</h3>
+                    <p class="b_txt" id="mainBookDesc">초등학생용 영어 문법 학습서입니다.</p>
+
+                    <!-- <p class="price">
+                        <span class="discount" id="mainBookDiscount">10%</span>
+                        <span class="sale" id="mainBookSale">14,400원</span>
+                        <del class="original" id="mainBookOriginal">16,000원</del>
+                    </p> -->
+
+                    <div class="go_btn">
+                        <a id="mainBookLink" href="#">
+                            <span>바로가기</span>
+                            <img src="./images/Vector.png" alt="화살표">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 오른쪽 미리보기 -->
+            <div class="book_preview" id="previewList"></div>
+        </div>
+    </div>
+</article>
+            <article id="solution">
+                    <div class="inner">
+                        <div class="section_title">
+                            <p>Education Services</p>
+                            <h4>NE능률 <span>교육 솔루션</span></h4>
+                        </div>
+                        <div class="s_inner">
+                            <div class="s_inner_l">
+                                <div class="visual">
+                                    <span class="bg_text">SOLUTION</span>
+                                    <div class="red_circle"></div>
+                                    <div class="main_circle">
+                                        <img id="solutionImg" src="./images/soution_img1.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="s_inner_r">
+                                <div class="r_text">
+                                    <div class="category">
+                                        <button class="active" data-solution-tab="baby">영유아</button>
+                                        <button data-solution-tab="student">초ㆍ중ㆍ고</button>
+                                    </div>
+                                    <span id="solutionTag">#놀이형 콘텐츠 #월령 맞춤 설계</span>
+                                    <h4 id="solutionTitle">아이 챌린지</h4>
+                                    <p id="solutionDesc">
+                                        영유아 월령 발달에 맞춰 바른 습관을 길러주는<br>
+                                        홈스쿨 프로그램
+                                    </p>
+                                    <div class="c_box">
+                                        <a href="#">
+                                            바로가기
+                                            <img src="./images/Vector.png" alt="화살표">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="slide_r">
+                                    <div class="slide_btn" id="solutionDots"></div>
+                                    <div class="slide_count">
+                                        <button class="prev" id="solutionPrev">&lt;</button>
+                                        <span class="current" id="solutionCurrent">01</span>
+                                        <span class="slash">/</span>
+                                        <span class="total" id="solutionTotal">04</span>
+                                        <button class="next" id="solutionNext">&gt;</button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+
+                    </div>
+
+            </article>
+                <article id="teacher">
+                    <div class="t_section">
+                        <div class="section_title">
+                            <p>Education Services</p>
+                            <h4>NE능률 <span>교육 솔루션</span></h4>
+                        </div>
+                        <ul class="t_list">
+                            <li>
+                                <a href="#" class="t_card card1">
+                                    <div class="txt_box">
+                                        <h3>NELT</h3>
+                                        <p>수업 준비부터 문제 출제까지, 선생님을 위한 모든 솔루션</p>
+                                    </div>
+                                    <span class="arrow_btn">→</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="t_card card2">
+                                    <div class="txt_box">
+                                        <h3>NELT</h3>
+                                        <p>수업 준비부터 문제 출제까지, 선생님을 위한 모든 솔루션</p>
+                                    </div>
+                                    <span class="arrow_btn">→</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="t_card card3">
+                                    <div class="txt_box">
+                                        <h3>NELT</h3>
+                                        <p>수업 준비부터 문제 출제까지, 선생님을 위한 모든 솔루션</p>
+                                    </div>
+                                    <span class="arrow_btn">→</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article id="notice">
+                    <div class="n_section">
+                        <div class="section_title">
+                            <p>PR Center</p>
+                            <h4><span>홍보</span>센터</h4>
+                        </div>
+                        <div class="category">
+                            <button class="active">보도자료</button>
+                            <button>사회공헌</button>
+                            <button>광고자료</button>
+                        </div>
+                        <div class="c_box c_box1">
+                            <ul class="notice_wrap">
+                                <li>
+                                    <a href="#">
+                                        <span class="n_category">기타</span>
+                                        <strong class="title">NE능률, ‘제3회 다다익선 융합 수업자료 공모전’ 시상식 개최</strong>
+                                        <span class="date">2025-03-07</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="n_category">기타</span>
+                                        <strong class="title">NE능률, 베트남 영어 교육 기관과 독점 계약 체결…글로벌 시장 확장 가속화</strong>
+                                        <span class="date">2025-02-12</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="n_category">이벤트</span>
+                                        <strong class="title">NE능률, 초등 학부모 무료 특강 ‘우리 아이 진짜 문해력 키우는 달곰한 해법’ 진행</strong>
+                                        <span class="date">2025-02-12</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="n_category">이벤트</span>
+                                        <strong class="title">제 1회 NE능률 또래교사 수학 스피치 대회 개최</strong>
+                                        <span class="date">2025-02-12</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="n_category">이벤트</span>
+                                        <strong class="title">NE능률 주니어랩, 툰스퀘어와 함께 초중등 대상 ‘AI툰 영어독후감 경시대회’ 개최</strong>
+                                        <span class="date">2024-10-11</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="c_box c_box2">
+                            <div class="social_box sbox1">
+                                <span>01 교육 나눔</span>
+                                <h2>배움의 기회를 모두에게</h2>
+                                <p>교육 환경이 부족한 아동과 청소년에게<br>
+                                    교재와 학습 콘텐츠를 지원합니다.</p>
+                                <div class="social_circle">
+                                    <img src="./images/social_icon1.png" alt="">
+                                </div>
+                            </div>
+                            <div class="social_box sbox2">
+                                <span>02 도서 기부</span>
+                                <h2>책으로 이어지는 따뜻한 나눔</h2>
+                                <p>지역아동센터와 교육기관에 학습 도서를 전달해<br>
+                                    아이들의 꾸준한 성장을 응원합니다.</p>
+                                <div class="social_circle">
+                                    <img src="./images/social_icon2.png" alt="">
+                                </div>
+                            </div>
+                            <div class="social_box sbox3">
+                                <span>03 지역사회 동행</span>
+                                <h2>함께 성장하는 지역사회</h2>
+                                <p>임직원 봉사와 교육 지원 활동을 통해<br>
+                                    지역사회와 지속 가능한 가치를 만들어갑니다.</p>
+                                <div class="social_circle">
+                                    <img src="./images/social_icon3.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="c_box c_box3">
+                            <ul class="promotion_list">
+                                <li class="promotion_box">
+                                    <a href="#">
+                                        <div class="promotion_img">
+                                            <img src="./images/promotion1.png" alt="엘로이큐브 총판 계약 관련 이미지">
+                                        </div>
+
+                                        <div class="promotion_txt">
+                                            <p class="promotion_category">언론홍보</p>
+                                            <h5>지란지교에스엔씨 × 엘로이큐브 총판 계약</h5>
+                                            <time datetime="2026-05-15">2026-05-15</time>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li class="promotion_box">
+                                    <a href="#">
+                                        <div class="promotion_img">
+                                            <img src="./images/promotion2.png" alt="언론홍보 관련 이미지">
+                                        </div>
+
+                                        <div class="promotion_txt">
+                                            <p class="promotion_category">언론홍보</p>
+                                            <h5>지란지교에스엔씨 × 엘로이큐브 총판 계약</h5>
+                                            <time datetime="2026-05-15">2026-05-15</time>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li class="promotion_box">
+                                    <a href="#">
+                                        <div class="promotion_img">
+                                            <img src="./images/promotion3.png" alt="언론홍보 관련 이미지">
+                                        </div>
+
+                                        <div class="promotion_txt">
+                                            <p class="promotion_category">언론홍보</p>
+                                            <h5>지란지교에스엔씨 × 엘로이큐브 총판 계약</h5>
+                                            <time datetime="2026-05-15">2026-05-15</time>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li class="promotion_box">
+                                    <a href="#">
+                                        <div class="promotion_img">
+                                            <img src="./images/promotion4.png" alt="언론홍보 관련 이미지">
+                                        </div>
+
+                                        <div class="promotion_txt">
+                                            <p class="promotion_category">언론홍보</p>
+                                            <h5>지란지교에스엔씨 × 엘로이큐브 총판 계약</h5>
+                                            <time datetime="2026-05-15">2026-05-15</time>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </article>
+        </section>
+        <footer id="footer">
+            <div class="footer_inner">
+                <h1 class="logo">
+                </h1>
+                <div class="info">
+                    <ul>
+                        <li><a href="#">개인정보처리방침</a></li>
+                        <li><a href="#">이용약관</a></li>
+                        <li><a href="#">이메일무단수집거부</a></li>
+                        <li><a href="#">제휴제안</a></li>
+                    </ul>
+                    <address>
+                        ㈜NE능률 (03925) 서울 특별시 마포구 월드컵북로 396(상암동) 누리꿈스퀘어 비즈니스타워 10층 | 대표이사 : 이정진<br>
+                        대표번호 : 02-2014-7114 [사업별 고객센터 안내] | 팩스 : 02-3142-0356 | 사업자등록번호 : 105-81-65267 | IR문의 : 070-4473-7707<br>
+                        개인정보 보호책임자(CPO) : 김정원(necpo@neungyule.com)<br><br>
+                        Copyright © NE Neungyule, Inc. All Rights Reserved
+                    </address>
+                </div>
+                <div class="customer">
                     <h5>고객센터</h5>
-                    <p>T.055-288-3768<br>
-                        E.sonicast1@naver.com</p>
-                </li>
-            </ul>
-            <address>Copyright © 2026 SONICAST ALL RIGHTS RESERVED Designed by LEEJIA</address>
-        </div>
-        <div class="footer_bottom_right">
-            <ul class="footer_bottom_right_nav">
-                <li><a href="">ABOUT</a></li>
-                <li><a href="">TECH</a></li>
-                <li><a href="">PRODUCTS</a></li>
-                <li><a href="">CHANNEL</a></li>
-            </ul>
-            <div class="top_circle">
-                TOP
+                    <h3>02-2014-7114</h3>
+                    <p>평일 오전 9시 - 18시, 점심시간: 오후 12시 - 13시</p>
+                </div>
+                <div class="family_site">
+                    <select>
+                        <option>FAMILY SITE</option>
+                        <option value="https://www.naver.com/">아이챌린지</option>
+                        <option value="https://www.naver.com/">NE kids</option>
+                        <option value="https://www.naver.com/">NE Books</option>
+                        <option value="https://www.naver.com/">NE Bulid & Grow</option>
+                        <option value="https://www.naver.com/">NE Times</option>
+                        <option value="https://www.naver.com/">NE Tutor</option>
+                        <option value="https://www.naver.com/">NE능률 주니어랩</option>
+                        <option value="https://www.naver.com/">NELT</option>
+                    </select>
+                </div>
             </div>
-        </div>
+
+        </footer>
     </div>
-</footer>
-<script src="./js/main.js"></script>
+    <script>
+        
+    </script>
 </body>
 </html>
