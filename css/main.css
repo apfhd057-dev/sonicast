@@ -91,6 +91,9 @@ section{position:relative;padding:150px 5vw;}
     letter-spacing:.08em;
     color:#ccd5e3;
 }
+#header .nav a:hover{
+    color: var(--blue);
+}
 #header .contact-pill{
     padding:10px 18px;
     border:1px solid var(--line);
