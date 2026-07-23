@@ -222,91 +222,321 @@ window.addEventListener('load', () => {
     updateVisionZoom();
 });
 
-/* PRODUCT SLIDE */
-const productMarquee = document.querySelector('#products .product-marquee');
-const productTrack = document.querySelector('#products .product-track');
+/* PRODUCT SLIDER V2: seamless autoplay + drag + mobile swipe */
+(function initProductSlider() {
+    const viewport = document.querySelector('#products .product-marquee');
+    const track = document.querySelector('#products .product-track');
+    const prevButton = document.querySelector('#products .product-prev');
+    const nextButton = document.querySelector('#products .product-next');
 
-if (productTrack && !productTrack.dataset.cloned) {
-    const originalCards = Array.from(productTrack.children);
+    if (!viewport || !track) return;
 
-    originalCards.forEach(card => {
+    const originalCards = Array.from(track.querySelectorAll('.product-card'));
+    if (!originalCards.length) return;
+
+    const desktopAutoQuery = window.matchMedia('(min-width: 769px)');
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    let allCards = [];
+    let middleCards = [];
+    let middleStart = 0;
+    let setWidth = 0;
+    let cardStep = 0;
+
+    let isDragging = false;
+    let isTouching = false;
+    let isHovered = false;
+    let isFocused = false;
+    let isButtonMoving = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+    let dragDistance = 0;
+
+    let animationFrame = 0;
+    let lastTime = 0;
+    let resizeTimer = 0;
+    let buttonTimer = 0;
+    const AUTO_SPEED = 31; // px per second
+
+    function makeClone(card) {
         const clone = card.cloneNode(true);
+        clone.classList.add('product-card-clone');
         clone.setAttribute('aria-hidden', 'true');
-        productTrack.appendChild(clone);
-    });
-
-    productTrack.dataset.cloned = 'true';
-}
-
-/* PRODUCT CARD HOVER */
-document.querySelectorAll('.product-card').forEach(card => {
-    card.addEventListener('mousemove', e => {
-        if (productMarquee && productMarquee.classList.contains('dragging')) return;
-
-        const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - .5;
-        const y = (e.clientY - r.top) / r.height - .5;
-
-        card.style.transform = `translateY(-12px) rotateX(${-y * 10}deg) rotateY(${x * 10}deg)`;
-    });
-
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-    });
-});
-
-/* PRODUCT DRAG */
-if (productMarquee && productTrack) {
-    let isProductDrag = false;
-    let productStartX = 0;
-    let productBaseX = 0;
-
-    function getTranslateX(el) {
-        const transform = window.getComputedStyle(el).transform;
-        if (!transform || transform === 'none') return 0;
-
-        const matrix = new DOMMatrixReadOnly(transform);
-        return matrix.m41;
+        clone.querySelectorAll('a,button,input,select,textarea,[tabindex]').forEach(el => {
+            el.setAttribute('tabindex', '-1');
+        });
+        return clone;
     }
 
-    productMarquee.addEventListener('pointerdown', e => {
-        isProductDrag = true;
-        productStartX = e.clientX;
-        productBaseX = getTranslateX(productTrack);
+    function buildInfiniteTrack() {
+        if (track.dataset.infiniteReady === 'true') return;
 
-        productMarquee.classList.add('dragging');
-        productTrack.classList.add('is-dragging');
-        productTrack.style.animationPlayState = 'paused';
-        productTrack.style.transform = `translateX(${productBaseX}px)`;
+        const prefix = document.createDocumentFragment();
+        const suffix = document.createDocumentFragment();
 
-        productMarquee.setPointerCapture(e.pointerId);
-    });
+        originalCards.forEach(card => prefix.appendChild(makeClone(card)));
+        originalCards.forEach(card => suffix.appendChild(makeClone(card)));
 
-    productMarquee.addEventListener('pointermove', e => {
-        if (!isProductDrag) return;
+        track.insertBefore(prefix, track.firstChild);
+        track.appendChild(suffix);
+        track.dataset.infiniteReady = 'true';
+    }
 
-        const moveX = e.clientX - productStartX;
-        productTrack.style.transform = `translateX(${productBaseX + moveX}px)`;
-    });
+    function measureSlider(keepVisualPosition = false) {
+        const oldWidth = setWidth;
+        const oldRelative = oldWidth
+            ? (viewport.scrollLeft - middleStart) / oldWidth
+            : 0;
 
-    function endProductDrag(e) {
-        if (!isProductDrag) return;
+        allCards = Array.from(track.querySelectorAll('.product-card'));
+        middleCards = allCards.slice(originalCards.length, originalCards.length * 2);
 
-        isProductDrag = false;
-        productMarquee.classList.remove('dragging');
+        const firstMiddle = middleCards[0];
+        const firstSuffix = allCards[originalCards.length * 2];
 
-        if (e && productMarquee.hasPointerCapture(e.pointerId)) {
-            productMarquee.releasePointerCapture(e.pointerId);
+        if (!firstMiddle || !firstSuffix) return;
+
+        middleStart = firstMiddle.offsetLeft;
+        setWidth = firstSuffix.offsetLeft - firstMiddle.offsetLeft;
+
+        if (middleCards.length > 1) {
+            cardStep = middleCards[1].offsetLeft - middleCards[0].offsetLeft;
+        } else {
+            cardStep = firstMiddle.offsetWidth;
         }
 
-        productTrack.classList.remove('is-dragging');
-        productTrack.style.transform = '';
-        productTrack.style.animationPlayState = 'running';
+        if (keepVisualPosition && oldWidth) {
+            viewport.scrollLeft = middleStart + oldRelative * setWidth;
+        } else {
+            viewport.scrollLeft = middleStart;
+        }
+
+        normalizeLoop();
     }
 
-    productMarquee.addEventListener('pointerup', endProductDrag);
-    productMarquee.addEventListener('pointercancel', endProductDrag);
-}
+    function normalizeLoop() {
+        if (!setWidth) return;
+
+        const lowerEdge = middleStart - setWidth * .5;
+        const upperEdge = middleStart + setWidth * .5;
+
+        if (viewport.scrollLeft <= lowerEdge) {
+            viewport.scrollLeft += setWidth;
+        } else if (viewport.scrollLeft >= upperEdge) {
+            viewport.scrollLeft -= setWidth;
+        }
+    }
+
+    function shouldAutoPlay() {
+        return desktopAutoQuery.matches &&
+            !reducedMotionQuery.matches &&
+            !isDragging &&
+            !isTouching &&
+            !isHovered &&
+            !isFocused &&
+            !isButtonMoving &&
+            !document.hidden;
+    }
+
+    function autoLoop(time) {
+        if (!lastTime) lastTime = time;
+        const delta = Math.min(time - lastTime, 50);
+        lastTime = time;
+
+        if (shouldAutoPlay()) {
+            viewport.scrollLeft += AUTO_SPEED * (delta / 1000);
+            normalizeLoop();
+        }
+
+        animationFrame = requestAnimationFrame(autoLoop);
+    }
+
+    function pauseForButton() {
+        isButtonMoving = true;
+        clearTimeout(buttonTimer);
+        buttonTimer = window.setTimeout(() => {
+            isButtonMoving = false;
+            normalizeLoop();
+        }, 650);
+    }
+
+    function moveByCard(direction) {
+        if (!cardStep) return;
+        pauseForButton();
+        viewport.scrollBy({
+            left: direction * cardStep,
+            behavior: 'smooth'
+        });
+    }
+
+    function getNearestMiddleCard() {
+        const center = viewport.scrollLeft + viewport.clientWidth / 2;
+        let nearest = null;
+        let nearestDistance = Infinity;
+
+        middleCards.forEach(card => {
+            const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+            const distance = Math.abs(center - cardCenter);
+            if (distance < nearestDistance) {
+                nearest = card;
+                nearestDistance = distance;
+            }
+        });
+
+        return nearest;
+    }
+
+    function snapToNearestCard() {
+        if (desktopAutoQuery.matches) {
+            const card = getNearestMiddleCard();
+            if (!card) return;
+
+            const target = card.offsetLeft - (viewport.clientWidth - card.offsetWidth) / 2;
+            isButtonMoving = true;
+            viewport.scrollTo({ left: target, behavior: 'smooth' });
+            clearTimeout(buttonTimer);
+            buttonTimer = window.setTimeout(() => {
+                isButtonMoving = false;
+                normalizeLoop();
+            }, 520);
+        } else {
+            normalizeLoop();
+        }
+    }
+
+    prevButton?.addEventListener('click', () => moveByCard(-1));
+    nextButton?.addEventListener('click', () => moveByCard(1));
+
+    /* PC 마우스와 펜 드래그 */
+    viewport.addEventListener('pointerdown', event => {
+        if (event.pointerType === 'touch' || event.button !== 0) return;
+
+        isDragging = true;
+        startX = event.clientX;
+        startScrollLeft = viewport.scrollLeft;
+        dragDistance = 0;
+
+        viewport.classList.add('dragging');
+        viewport.setPointerCapture?.(event.pointerId);
+        event.preventDefault();
+    });
+
+    viewport.addEventListener('pointermove', event => {
+        if (!isDragging) return;
+
+        const distance = event.clientX - startX;
+        dragDistance = Math.max(dragDistance, Math.abs(distance));
+        viewport.scrollLeft = startScrollLeft - distance;
+        normalizeLoop();
+    });
+
+    function finishMouseDrag(event) {
+        if (!isDragging) return;
+
+        isDragging = false;
+        viewport.classList.remove('dragging');
+
+        if (viewport.hasPointerCapture?.(event.pointerId)) {
+            viewport.releasePointerCapture(event.pointerId);
+        }
+
+        if (dragDistance > 4) snapToNearestCard();
+    }
+
+    viewport.addEventListener('pointerup', finishMouseDrag);
+    viewport.addEventListener('pointercancel', finishMouseDrag);
+    viewport.addEventListener('lostpointercapture', event => {
+        if (isDragging) finishMouseDrag(event);
+    });
+
+    /* 태블릿·모바일은 브라우저 기본 손가락 스와이프 사용 */
+    viewport.addEventListener('touchstart', () => {
+        isTouching = true;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', () => {
+        window.setTimeout(() => {
+            isTouching = false;
+            normalizeLoop();
+        }, 180);
+    }, { passive: true });
+
+    viewport.addEventListener('touchcancel', () => {
+        isTouching = false;
+        normalizeLoop();
+    }, { passive: true });
+
+    viewport.addEventListener('scroll', normalizeLoop, { passive: true });
+
+    viewport.addEventListener('mouseenter', () => {
+        isHovered = true;
+    });
+
+    viewport.addEventListener('mouseleave', () => {
+        isHovered = false;
+    });
+
+    viewport.addEventListener('focusin', () => {
+        isFocused = true;
+    });
+
+    viewport.addEventListener('focusout', () => {
+        isFocused = false;
+    });
+
+    viewport.addEventListener('keydown', event => {
+        if (event.key === 'ArrowLeft') {
+            event.preventDefault();
+            moveByCard(-1);
+        } else if (event.key === 'ArrowRight') {
+            event.preventDefault();
+            moveByCard(1);
+        }
+    });
+
+    /* 카드 기울기 효과: PC에서만 */
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        originalCards.forEach(card => {
+            card.addEventListener('mousemove', event => {
+                if (isDragging) return;
+
+                const rect = card.getBoundingClientRect();
+                const x = (event.clientX - rect.left) / rect.width - .5;
+                const y = (event.clientY - rect.top) / rect.height - .5;
+                card.style.transform = `translateY(-12px) rotateX(${-y * 10}deg) rotateY(${x * 10}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+    }
+
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(() => measureSlider(true), 150);
+    });
+
+    desktopAutoQuery.addEventListener?.('change', () => {
+        lastTime = performance.now();
+        normalizeLoop();
+    });
+
+    document.addEventListener('visibilitychange', () => {
+        lastTime = performance.now();
+    });
+
+    buildInfiniteTrack();
+
+    requestAnimationFrame(() => {
+        measureSlider(false);
+        animationFrame = requestAnimationFrame(autoLoop);
+    });
+
+    window.addEventListener('beforeunload', () => {
+        cancelAnimationFrame(animationFrame);
+    });
+})();
 
 /* RIBBON */
 document.querySelectorAll('.ribbon-text').forEach(track => {
@@ -318,45 +548,58 @@ document.querySelectorAll('.ribbon-text').forEach(track => {
     track.dataset.filled = 'true';
 });
 
-/* SNS SPREAD */
+/* SNS SPREAD: responsive card widths without title overlap */
+function resetSnsSpread() {
+    document.querySelectorAll('[data-spread-card]').forEach(card => {
+        card.style.removeProperty('transform');
+        card.style.removeProperty('opacity');
+    });
+}
+
 function updateSnsSpread() {
     const section = document.querySelector('.sns-spread-section');
-    const cards = document.querySelectorAll('[data-spread-card]');
-    if (!section || !cards.length || window.innerWidth <= 900) return;
+    const stage = document.querySelector('[data-sns-spread]');
+    const cards = Array.from(document.querySelectorAll('[data-spread-card]'));
+
+    if (!section || !stage || !cards.length) return;
+
+    /* 1100px 이하에서는 기존 2열/1열 반응형 배치를 그대로 사용합니다. */
+    if (window.innerWidth <= 1100) {
+        resetSnsSpread();
+        return;
+    }
 
     const rect = section.getBoundingClientRect();
     const total = section.offsetHeight - window.innerHeight;
     const raw = total > 0 ? -rect.top / total : 0;
-    const p = clamp(raw, 0, 1);
-    const ease = 1 - Math.pow(1 - p, 3);
+    const progress = clamp(raw, 0, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
 
-    const vw = window.innerWidth;
-    const spreadX = [
-        -Math.min(vw * 0.43, 690),
-        -Math.min(vw * 0.16, 260),
-         Math.min(vw * 0.16, 260),
-         Math.min(vw * 0.43, 690)
-    ];
+    const stageWidth = stage.clientWidth || window.innerWidth;
+    const cardWidth = cards[0].getBoundingClientRect().width;
+    const gap = clamp(stageWidth * .016, 16, 28);
+    const step = cardWidth + gap;
+    const finalX = [-1.5 * step, -.5 * step, .5 * step, 1.5 * step];
 
     const stackX = [-30, -10, 10, 30];
     const startRot = [-10, -4, 4, 10];
-    const endRot = [-4, 3, -2, 3];
+    const endRot = [-3, 2, -2, 3];
     const startY = [26, 14, 8, 0];
-    const endY = [18, 42, 22, 36];
+    const endY = [18, 34, 18, 30];
     const scales = [.94, .97, .99, 1];
 
-    cards.forEach((card, i) => {
-        const x = stackX[i] + (spreadX[i] - stackX[i]) * ease;
-        const y = startY[i] + (endY[i] - startY[i]) * ease;
-        const rot = startRot[i] + (endRot[i] - startRot[i]) * ease;
-        const scale = scales[i] + (1 - scales[i]) * ease;
+    cards.forEach((card, index) => {
+        const x = stackX[index] + (finalX[index] - stackX[index]) * ease;
+        const y = startY[index] + (endY[index] - startY[index]) * ease;
+        const rotation = startRot[index] + (endRot[index] - startRot[index]) * ease;
+        const scale = scales[index] + (1 - scales[index]) * ease;
 
-        card.style.transform = `translateX(calc(-50% + ${x}px)) translateY(${y}px) rotate(${rot}deg) scale(${scale})`;
-        card.style.opacity = 1;
+        card.style.transform = `translateX(calc(-50% + ${x}px)) translateY(${y}px) rotate(${rotation}deg) scale(${scale})`;
+        card.style.opacity = '1';
     });
 }
 
-window.addEventListener('scroll', updateSnsSpread);
+window.addEventListener('scroll', updateSnsSpread, { passive: true });
 window.addEventListener('resize', updateSnsSpread);
 window.addEventListener('load', updateSnsSpread);
 updateSnsSpread();
@@ -531,3 +774,10 @@ if (menuBtn && mobileMenu) {
     }
 })();
 
+
+
+/* FOOTER TOP BUTTON */
+document.querySelector('#footer .top_circle')?.addEventListener('click', event => {
+    event.preventDefault();
+    document.querySelector('#hero')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});

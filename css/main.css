@@ -100,6 +100,9 @@ section{position:relative;padding:150px 5vw;}
     border-radius:999px;
     background:rgba(255,255,255,.04);
 }
+#header .contact-pill:hover{
+    background:rgba(255,255,255,.4);
+}
 .menu-btn {
     display: none;
     position: relative;
@@ -1675,3 +1678,449 @@ section{position:relative;padding:150px 5vw;}
     }
 }
 
+/* =========================================================
+   SONICAST FINAL RESPONSIVE / SLIDER FIX
+   - FOOTER ALIGNMENT
+   - SNS CARD SPREAD BELOW 1600px
+   - PRODUCT MOUSE + TOUCH DRAG / PREV NEXT
+========================================================= */
+
+/* ---------- PRODUCT CONTROLS + TRUE SCROLL SLIDER ---------- */
+#products .section-head{
+    width:min(1600px,calc(100% - clamp(40px,10vw,160px)));
+    margin-right:auto;
+    margin-left:auto;
+    padding:0 !important;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:32px;
+}
+
+#products .products_title{
+    align-items:flex-start;
+}
+
+#products .product-controls{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-shrink:0;
+}
+
+#products .product-controls button{
+    min-width:82px;
+    height:38px;
+    padding:0 13px;
+    border:1px solid rgba(255,255,255,.24);
+    border-radius:999px;
+    background:rgba(255,255,255,.055);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font:inherit;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.08em;
+    cursor:pointer;
+    transition:background .25s,border-color .25s,transform .25s;
+}
+
+#products .product-controls button:hover,
+#products .product-controls button:focus-visible{
+    border-color:rgba(87,215,255,.72);
+    background:rgba(0,107,255,.22);
+    transform:translateY(-2px);
+    outline:none;
+}
+
+#products .product-controls i{
+    font-style:normal;
+    font-size:15px;
+    line-height:1;
+}
+
+#products .product-marquee{
+    width:100%;
+    overflow-x:auto !important;
+    overflow-y:hidden;
+    padding-top:34px;
+    padding-bottom:18px;
+    margin-top:-34px;
+    cursor:grab;
+    user-select:none;
+    touch-action:pan-x;
+    -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x mandatory;
+    scroll-padding-inline:clamp(20px,5vw,80px);
+    scrollbar-width:none;
+    overscroll-behavior-inline:contain;
+}
+
+#products .product-marquee::-webkit-scrollbar{
+    display:none;
+}
+
+#products .product-marquee.dragging{
+    cursor:grabbing;
+    scroll-snap-type:none;
+}
+
+#products .product-track,
+#products .product-track:hover,
+#products .product-track.is-dragging{
+    width:max-content;
+    padding-right:clamp(20px,5vw,80px);
+    padding-left:clamp(20px,5vw,80px);
+    animation:none !important;
+    transform:none !important;
+}
+
+#products .product-card{
+    width:clamp(300px,22vw,360px);
+    scroll-snap-align:center;
+    scroll-snap-stop:always;
+}
+
+/* ---------- SNS: 1101px~1599px에서도 카드 제목이 보이도록 ---------- */
+@media (min-width:1101px){
+    .sns-stack-stage .spread-card,
+    #sns .sns-case-card{
+        width:clamp(250px,22vw,450px) !important;
+        height:clamp(420px,28vw,520px) !important;
+        padding:clamp(28px,2.35vw,46px) clamp(24px,2.1vw,42px) !important;
+    }
+
+    #sns .sns-case-card h3{
+        font-size:clamp(27px,2vw,38px);
+        line-height:1.02;
+        margin-bottom:clamp(12px,1.15vw,18px);
+    }
+
+    #sns .sns-case-card p{
+        font-size:clamp(13px,.95vw,16px);
+        line-height:1.58;
+    }
+
+    #sns .sns-visual::before{
+        width:clamp(260px,20vw,400px);
+        height:clamp(260px,20vw,400px);
+        border-width:clamp(34px,2.65vw,50px);
+    }
+
+    #sns .sns-visual::after{
+        width:clamp(165px,13vw,250px);
+        height:clamp(165px,13vw,250px);
+        border-width:clamp(15px,1.2vw,22px);
+    }
+}
+
+/* ---------- FOOTER: 위/아래를 같은 세로선에 정렬 ---------- */
+#footer{
+    padding:64px clamp(32px,5vw,96px);
+}
+
+#footer .footer_top,
+#footer .footer_bottom{
+    width:min(1712px,100%);
+    margin-right:auto;
+    margin-left:auto;
+    display:grid;
+    grid-template-columns:minmax(0,1.18fr) minmax(520px,.82fr);
+    column-gap:clamp(64px,8vw,150px);
+    box-sizing:border-box;
+}
+
+#footer .footer_top{
+    align-items:center;
+    padding-bottom:38px;
+}
+
+#footer .footer_top_img{
+    justify-self:start;
+}
+
+#footer .footer_top_img img{
+    width:clamp(150px,10vw,190px);
+    height:auto;
+}
+
+#footer .footer_top_nav{
+    width:100%;
+    justify-content:flex-end;
+    align-items:center;
+    white-space:nowrap;
+}
+
+#footer .footer_bottom{
+    padding-top:38px;
+    align-items:start;
+}
+
+#footer .footer_bottom_left,
+#footer .footer_bottom_right{
+    width:100%;
+    min-width:0;
+}
+
+#footer .footer_bottom_nav li{
+    display:grid;
+    grid-template-columns:72px minmax(0,1fr);
+    align-items:start;
+    gap:0;
+}
+
+#footer .footer_bottom_nav h5{
+    font-size:14px;
+    line-height:1.65;
+}
+
+#footer .footer_bottom_nav p{
+    font-size:15px;
+    line-height:1.6;
+}
+
+#footer address{
+    margin-top:30px;
+    font-style:italic;
+    line-height:1.6;
+}
+
+#footer .footer_bottom_right{
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+}
+
+#footer .footer_bottom_right_nav{
+    width:100%;
+    justify-content:space-between;
+    gap:20px;
+    padding-bottom:38px;
+}
+
+#footer .top_circle{
+    float:none;
+    margin-left:auto;
+    flex:0 0 auto;
+}
+
+@media (max-width:1100px){
+    #footer .footer_top,
+    #footer .footer_bottom{
+        grid-template-columns:1fr;
+        row-gap:34px;
+    }
+
+    #footer .footer_top_nav,
+    #footer .footer_bottom_right_nav{
+        justify-content:flex-start;
+        flex-wrap:wrap;
+    }
+
+    #footer .top_circle{
+        margin-left:0;
+    }
+}
+
+@media (max-width:768px){
+    #hero .scroll{
+        display: none;
+    }
+
+    #products .section-head{
+        width:calc(100% - 40px);
+        flex-direction:column;
+        align-items:center;
+        gap:22px;
+        text-align:center;
+    }
+
+    #products .products_title{
+        align-items:center;
+    }
+
+    #products .product-controls button{
+        min-width:76px;
+        height:36px;
+    }
+
+    #products .product-track{
+        gap:18px;
+        padding-right:20px;
+        padding-left:20px;
+    }
+
+    #products .product-card{
+        width:min(80vw,300px);
+        height:420px;
+    }
+    
+
+    #footer{
+        padding:54px 20px;
+    }
+
+    #footer .footer_top,
+    #footer .footer_bottom{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:28px;
+    }
+
+    #footer .footer_bottom_nav li{
+        display:grid;
+        grid-template-columns:70px minmax(0,1fr);
+        gap:0;
+        margin-bottom:12px;
+    }
+
+    #footer .footer_top_nav li::after{
+        padding:0 7px;
+    }
+}
+
+
+
+/* =========================================================
+   PRODUCT SLIDER V2
+   - 제목은 항상 가운데 정렬
+   - PC/태블릿 자동 무한 흐름 + 마우스/터치 드래그
+   - hover/focus/drag 중 자동 정지
+   - 모바일은 자동 재생 없이 손가락 스와이프만 사용
+========================================================= */
+
+#products .section-head{
+    position:relative;
+    width:min(1600px,calc(100% - clamp(40px,10vw,160px)));
+    margin-right:auto;
+    margin-left:auto;
+    padding:0 !important;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+#products .products_title{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center !important;
+    margin:0 auto;
+}
+
+#products .product-controls{
+    position:absolute;
+    right:0;
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    align-items:center;
+    gap:7px;
+    flex-shrink:0;
+}
+
+#products .product-controls button{
+    min-width:64px;
+    height:30px;
+    padding:0 10px;
+    gap:5px;
+    font-size:9px;
+    letter-spacing:.06em;
+    background:rgba(255,255,255,.035);
+}
+
+#products .product-controls i{
+    font-size:12px;
+}
+
+#products .product-marquee{
+    width:100%;
+    overflow-x:auto !important;
+    overflow-y:hidden;
+    cursor:grab;
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    overscroll-behavior-inline:contain;
+}
+
+#products .product-marquee::-webkit-scrollbar{
+    display:none;
+}
+
+#products .product-marquee.dragging{
+    cursor:grabbing;
+    scroll-behavior:auto;
+}
+
+#products .product-track,
+#products .product-track:hover,
+#products .product-track.is-dragging{
+    width:max-content;
+    animation:none !important;
+    transform:none !important;
+    will-change:auto;
+}
+
+/* PC와 태블릿은 끊김 없는 자동 이동이므로 snap을 사용하지 않음 */
+@media (min-width:769px){
+    #products .product-marquee{
+        scroll-snap-type:none !important;
+        touch-action:auto;
+    }
+
+    #products .product-card{
+        scroll-snap-align:none;
+        scroll-snap-stop:normal;
+    }
+}
+
+/* 작은 태블릿에서는 버튼을 제목 아래에 두어 제목 중앙을 방해하지 않음 */
+@media (min-width:769px) and (max-width:1100px){
+    #products .section-head{
+        flex-direction:column;
+        gap:14px;
+    }
+
+    #products .product-controls{
+        position:static;
+        transform:none;
+        margin-top:2px;
+    }
+}
+
+/* 모바일은 손가락 스와이프 전용 */
+@media (max-width:768px){
+    #products .section-head{
+        width:calc(100% - 40px);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        text-align:center;
+    }
+
+    #products .products_title{
+        align-items:center !important;
+    }
+
+    #products .product-controls{
+        display:none !important;
+    }
+
+    #products .product-marquee{
+        scroll-snap-type:x mandatory !important;
+        scroll-padding-inline:20px;
+        touch-action:auto;
+    }
+
+    #products .product-card{
+        scroll-snap-align:center;
+        scroll-snap-stop:always;
+    }
+}

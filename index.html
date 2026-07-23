@@ -192,9 +192,18 @@
       <div class="eyebrow">PRODUCT LINEUP</div>
       <h2 class="big-title">The Collection</h2>
     </div>
+
+    <div class="product-controls" aria-label="제품 슬라이드 이동">
+      <button class="product-prev" type="button" aria-label="이전 제품 보기">
+        <span>PREV</span><i aria-hidden="true">←</i>
+      </button>
+      <button class="product-next" type="button" aria-label="다음 제품 보기">
+        <span>NEXT</span><i aria-hidden="true">→</i>
+      </button>
+    </div>
   </div>
 
-  <div class="product-marquee reveal">
+  <div class="product-marquee reveal" tabindex="0" aria-label="제품 카드 슬라이더. 좌우로 드래그하거나 이전·다음 버튼을 사용할 수 있습니다.">
     <div class="product-track">
       <article class="product-card">
         <h3>direm<br>PRO MASTER</h3>
@@ -354,14 +363,14 @@
         </div>
         <div class="footer_bottom_right">
             <ul class="footer_bottom_right_nav">
-                <li><a href="">ABOUT</a></li>
-                <li><a href="">TECH</a></li>
-                <li><a href="">PRODUCTS</a></li>
-                <li><a href="">CHANNEL</a></li>
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#tech">TECH</a></li>
+                <li><a href="#products">PRODUCTS</a></li>
+                <li><a href="#sns">CHANNEL</a></li>
             </ul>
-            <div class="top_circle">
+            <a class="top_circle" href="#hero" aria-label="페이지 맨 위로 이동">
                 TOP
-            </div>
+            </a>
         </div>
     </div>
 </footer>
