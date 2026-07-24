@@ -583,17 +583,22 @@ function updateSnsSpread() {
     const ease = 1 - Math.pow(1 - progress, 3);
 
     const stageWidth = stage.clientWidth || window.innerWidth;
-    const cardWidth = cards[0].getBoundingClientRect().width;
-    const gap = clamp(stageWidth * .016, 16, 28);
+    const isShortDesktop = window.innerWidth > 1100 && window.innerHeight <= 820;
+
+    /* transform의 scale 값에 흔들리지 않도록 실제 레이아웃 너비를 사용합니다. */
+    const cardWidth = cards[0].offsetWidth || cards[0].getBoundingClientRect().width;
+    const gap = isShortDesktop
+        ? clamp(stageWidth * .012, 12, 20)
+        : clamp(stageWidth * .016, 16, 28);
     const step = cardWidth + gap;
     const finalX = [-1.5 * step, -.5 * step, .5 * step, 1.5 * step];
 
-    const stackX = [-30, -10, 10, 30];
-    const startRot = [-10, -4, 4, 10];
-    const endRot = [-3, 2, -2, 3];
-    const startY = [26, 14, 8, 0];
-    const endY = [18, 34, 18, 30];
-    const scales = [.94, .97, .99, 1];
+    const stackX = isShortDesktop ? [-22, -7, 7, 22] : [-30, -10, 10, 30];
+    const startRot = isShortDesktop ? [-7, -3, 3, 7] : [-10, -4, 4, 10];
+    const endRot = isShortDesktop ? [-2, 1, -1, 2] : [-3, 2, -2, 3];
+    const startY = isShortDesktop ? [10, 6, 3, 0] : [26, 14, 8, 0];
+    const endY = isShortDesktop ? [0, 8, 0, 6] : [18, 34, 18, 30];
+    const scales = isShortDesktop ? [.96, .98, .99, 1] : [.94, .97, .99, 1];
 
     cards.forEach((card, index) => {
         const x = stackX[index] + (finalX[index] - stackX[index]) * ease;
