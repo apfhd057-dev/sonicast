@@ -155,11 +155,18 @@ window.addEventListener('scroll', () => {
         const total = tech.offsetHeight - window.innerHeight;
         const progress = clamp(-rect.top / total, 0, 1);
 
+        /*
+           카드 높이를 CSS에서 반응형으로 줄여도 스택 이동 간격이
+           자동으로 맞도록 실제 카드 높이를 기준으로 계산합니다.
+        */
+        const cardGap = window.innerHeight <= 820 ? 40 : 60;
+        const cardStep = cards[0].offsetHeight + cardGap;
+        const maxMove = cardStep * (cards.length - 1);
+
         cards.forEach((card, i) => {
-            const base = i * 560;
-            const move = progress * 1120;
-            let yPos = base - move;
-            if (yPos < 0) yPos = 0;
+            const base = i * cardStep;
+            const move = progress * maxMove;
+            const yPos = Math.max(base - move, 0);
 
             card.style.transform = `translateY(${yPos}px)`;
             card.style.scale = '1';
